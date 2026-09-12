@@ -1,73 +1,91 @@
-# Playwright Project
+# Playwright E2E Test Suite
 
-## Introduction
+[![Playwright Tests](https://github.com/criguex/playwright-test/actions/workflows/playwright.yml/badge.svg)](https://github.com/criguex/playwright-test/actions/workflows/playwright.yml)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-45ba4b?logo=playwright&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
 
-This repository contains automated tests for Initial test using [Playwright](https://playwright.dev/). Playwright enables reliable end-to-end testing for modern web apps across all major browsers, including Chrome, Firefox, and WebKit. This project is structured to support testing across different environments and includes examples of both UI and API tests.
+End-to-end test automation suite for [SauceDemo](https://www.saucedemo.com) built with **Playwright** and **TypeScript**, following the **Page Object Model (POM)** pattern. Tests run across Chromium, Firefox, and WebKit on every push via GitHub Actions.
 
-## Prerequisites
+## Tech Stack
 
-Before running the tests, ensure you have the following installed on your system:
+| Tool | Purpose |
+|---|---|
+| [Playwright](https://playwright.dev) | Cross-browser E2E automation |
+| TypeScript | Type-safe test authoring |
+| GitHub Actions | CI/CD pipeline |
+| Page Object Model | Maintainable test architecture |
 
-- Node.js (version 12 or higher)
-- npm (usually comes with Node.js)
+## Test Coverage
 
-## Installation
+| Module | Tests |
+|---|---|
+| Login | Valid login, locked user, invalid credentials |
+| Inventory | Product listing, sort by name/price, add to cart |
+| Cart | Item management, item removal |
+| Checkout | Full E2E purchase flow, order confirmation |
 
-Follow these steps to set up your Playwright testing environment:
+## Project Structure
 
-1. Clone this repository to your local machine:
-git clone https://github.com/criguex/playwright-test
+```
+test_playwrite/
+├── tests/
+│   ├── pageobjects/
+│   │   ├── LoginPage.ts       # Login page interactions
+│   │   ├── InventoryPage.ts   # Product inventory interactions
+│   │   ├── CartPage.ts        # Shopping cart interactions
+│   │   └── CheckoutPage.ts    # Checkout flow interactions
+│   ├── TestSwag.spec.ts       # Login test scenarios
+│   ├── inventory.spec.ts      # Inventory test scenarios
+│   └── checkout.spec.ts       # E2E checkout test scenarios
+├── playwright.config.ts       # Playwright configuration
+└── package.json
+```
 
+## Getting Started
 
-2. Navigate to the project directory:
-cd playwright-project
+### Prerequisites
 
+- Node.js 18+
+- npm
 
-3. Install the required dependencies:
+### Installation
+
+```bash
+git clone https://github.com/criguex/playwright-test.git
+cd playwright-test/test_playwrite
 npm install
-
-
-4. (Optional) Install Playwright browsers. This step is only necessary if you haven't run Playwright on your system before, or if you need to install browsers for the first time:
-
-
 npx playwright install
+```
 
+### Running Tests
 
-## Running Tests
-
-To run all tests, use the following command:
-
+```bash
+# Run all tests (headless)
 npx playwright test
 
+# Run tests in a specific file
+npx playwright test tests/checkout.spec.ts
 
-To run tests in a specific file:
+# Run tests in UI mode
+npx playwright test --ui
 
-npx playwright test tests/your-test-file.spec.js
+# Run tests in headed mode
+npx playwright test --headed
 
+# Run on a specific browser
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
 
-For more advanced usage and to run tests across specific browsers, refer to the [Playwright CLI documentation](https://playwright.dev/docs/cli).
+# View HTML report
+npx playwright show-report
+```
 
-## Structure
+## CI/CD
 
-- `tests/`: Contains test files. Organize your tests by functionality, pages, or features for better maintainability.
-- `playwright.config.js`: Playwright configuration file. Customize it according to your project's requirements.
+Tests run automatically on every push and pull request to `main` via GitHub Actions. The HTML report is uploaded as an artifact after each run and retained for 30 days.
 
-## Additional Resources
+## License
 
-- [Playwright Documentation](https://playwright.dev/docs/intro) - Official Playwright documentation, including API reference and guides.
-- [Playwright GitHub Repository](https://github.com/microsoft/playwright) - Source code and additional examples.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+MIT
